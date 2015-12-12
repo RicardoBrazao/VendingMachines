@@ -2,7 +2,7 @@
 
 <h1>Listing Vending Machines</h1>
 
-<table border="1">
+<table class="table">
   <tbody>
     <tr>
       <% @vending_machines.each do |vending_machine| %>
@@ -14,7 +14,7 @@
             <%= vending_machine.description %>
           </div>
           <div>
-            <button class="btn btn-primary" onClick="$.vendingMachines.show()">Select this machine</button>
+            <button class="btn btn-primary" onClick="$.vendingMachines.show('<%= items_path(vending_machine_id: vending_machine.id) %>')">Select this machine</button>
           </div>
         </td>
       <% end %>

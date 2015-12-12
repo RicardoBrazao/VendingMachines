@@ -49,3 +49,50 @@ vending_machines = VendingMachine.create([
     }
   }
 ])
+
+items = Item.create([
+  {
+    vending_machine_id: vending_machines.first.id,
+    price: 0.75,
+    quantity: 35,
+    description: 'Green Lightsaber'
+  },
+  {
+    vending_machine_id: vending_machines.first.id,
+    price: 0.90,
+    quantity: 20,
+    description: 'Blue Lightsaber'
+  },
+  {
+    vending_machine_id: vending_machines.first.id,
+    price: 1.00,
+    quantity: 15,
+    description: 'Red Lightsaber'
+  },
+  {
+    vending_machine_id: vending_machines.first.id,
+    price: 1.15,
+    quantity: 30,
+    description: 'Purple Lightsaber'
+  },
+  {
+    vending_machine_id: vending_machines.first.id,
+    price: 0.50,
+    quantity: 40,
+    description: 'Yellow Lightsaber'
+  },
+  {
+    vending_machine_id: vending_machines.first.id,
+    price: 1.50,
+    quantity: 20,
+    description: 'Orange Lightsaber'
+  },
+  {
+    vending_machine_id: vending_machines.first.id,
+    price: 0.68,
+    quantity: 40,
+    description: 'Cyan Lightsaber'
+  },
+])
+
+
