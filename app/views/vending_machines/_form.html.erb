@@ -6,5 +6,8 @@
 
   <%= f.input :money_inserted do %>
     <%= text_field_tag 'money_inserted' %>
+    <% if @context && @context.errors %>
+      <div style="color: red"> <%= @context.errors[:money_inserted].first %> </div>
+    <% end %>
   <% end %>
 <% end %>

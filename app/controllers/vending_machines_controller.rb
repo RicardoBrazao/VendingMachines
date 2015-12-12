@@ -42,15 +42,17 @@ class VendingMachinesController < ApplicationController
   # PATCH/PUT /vending_machines/1
   # PATCH/PUT /vending_machines/1.json
   def update
+    @context = VendingMachines::Update::Base.perform(params)
     respond_to do |format|
-      if @vending_machine.update(vending_machine_params)
+      # if @vending_machine.update(vending_machine_params)
+      if @context.success?
         format.html { redirect_to @vending_machine, notice: 'Vending machine was successfully updated.' }
         format.json { render :show, status: :ok, location: @vending_machine }
-        format.js {
-          render :update, layout: false
-        }
+        format.js { render :update }
       else
-        format.html { render :edit }
+        @item = @vending_machine.items.where(id: vending_machine_params['items_attributes']['0']['id']).first
+        format.html { render partial: 'edit' }
+        format.js { render :edit }
         format.json { render json: @vending_machine.errors, status: :unprocessable_entity }
       end
     end
