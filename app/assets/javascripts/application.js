@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require plugins/bootstrap-modal
+//= require plugins/bootstrap-modalmanager
+//= require plugins/bootstrap-modal-loading-patch
+//= require vending_machines

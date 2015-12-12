@@ -33,8 +33,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
 end
 
 group :development do

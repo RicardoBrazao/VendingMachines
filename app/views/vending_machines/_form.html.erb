@@ -1,0 +1,17 @@
+<%= form_for(@vending_machine) do |f| %>
+  <% if @vending_machine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vending_machine.errors.count, "error") %> prohibited this vending_machine from being saved:</h2>
+
+      <ul>
+      <% @vending_machine.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
