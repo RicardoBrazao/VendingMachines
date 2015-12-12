@@ -1,17 +1,10 @@
-<%= form_for(@vending_machine) do |f| %>
-  <% if @vending_machine.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@vending_machine.errors.count, "error") %> prohibited this vending_machine from being saved:</h2>
-
-      <ul>
-      <% @vending_machine.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= simple_form_for @vending_machine, html: { id: 'editVendingMachine', data: { remote: true, type: "script" } } do |f| %>
+  <%= f.simple_fields_for :items, @item do |item| %>
+    <%= item.hidden_field :id %>
+    <%= item.hidden_field :quantity,  value: item.object.quantity - 1 %>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.input :money_inserted do %>
+    <%= text_field_tag 'money_inserted' %>
+  <% end %>
 <% end %>

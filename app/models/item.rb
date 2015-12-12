@@ -1,3 +1,3 @@
 class Item < ActiveRecord::Base
-  belongs_to :veding_machine
+  belongs_to :vending_machine
 end

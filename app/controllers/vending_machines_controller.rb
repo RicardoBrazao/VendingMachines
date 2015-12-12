@@ -19,6 +19,8 @@ class VendingMachinesController < ApplicationController
 
   # GET /vending_machines/1/edit
   def edit
+    @item = @vending_machine.items.where(id: params[:item_id]).first
+    render partial: 'edit'
   end
 
   # POST /vending_machines
@@ -44,6 +46,9 @@ class VendingMachinesController < ApplicationController
       if @vending_machine.update(vending_machine_params)
         format.html { redirect_to @vending_machine, notice: 'Vending machine was successfully updated.' }
         format.json { render :show, status: :ok, location: @vending_machine }
+        format.js {
+          render :update, layout: false
+        }
       else
         format.html { render :edit }
         format.json { render json: @vending_machine.errors, status: :unprocessable_entity }
@@ -69,6 +74,6 @@ class VendingMachinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vending_machine_params
-      params[:vending_machine]
+      params.require(:vending_machine).permit(:items_attributes => [:id, :quantity])
     end
 end

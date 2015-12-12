@@ -17,3 +17,4 @@
 //= require plugins/bootstrap-modalmanager
 //= require plugins/bootstrap-modal-loading-patch
 //= require vending_machines
+//= require items

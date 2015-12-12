@@ -1,0 +1,5 @@
+$("#itemPayment").modal('hide');
+
+$('#itemListing').modal().find('.modal-body').html('<%= j render "items/index", items: @vending_machine.items %>');
+
+$('#itemListing').modalmanager('loading');

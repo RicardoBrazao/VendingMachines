@@ -10,7 +10,8 @@ $.vendingMachines = {
   },
 
   afterDone: function(html){
-    var $modal = $('#myModal');
+    var $modal = $('#itemListing');
     $modal.modal().find('.modal-body').html(html);
-  }
+  },
+
 }
