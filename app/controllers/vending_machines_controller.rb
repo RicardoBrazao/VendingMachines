@@ -19,8 +19,10 @@ class VendingMachinesController < ApplicationController
 
   # GET /vending_machines/1/edit
   def edit
-    @item = @vending_machine.items.where(id: params[:item_id]).first
-    render partial: 'edit'
+    if params[:item_id].present?
+      @item = @vending_machine.items.where(id: params[:item_id]).first
+    end
+      render partial: 'edit'
   end
 
   # POST /vending_machines
@@ -42,7 +44,12 @@ class VendingMachinesController < ApplicationController
   # PATCH/PUT /vending_machines/1
   # PATCH/PUT /vending_machines/1.json
   def update
-    @context = VendingMachines::Update::Base.perform({params: params})
+    if vending_machine_params["change"]
+      @context = VendingMachines::Update::Refill::Base.perform({params: params})
+    else
+      @context = VendingMachines::Update::GetItem::Base.perform({params: params})
+    end
+
     respond_to do |format|
       # if @vending_machine.update(vending_machine_params)
       if @context.success?
@@ -50,7 +57,9 @@ class VendingMachinesController < ApplicationController
         format.json { render :show, status: :ok, location: @vending_machine }
         format.js { render :update }
       else
-        @item = @vending_machine.items.where(id: vending_machine_params['items_attributes']['0']['id']).first
+        if !vending_machine_params['change']
+          @item = @vending_machine.items.where(id: vending_machine_params['items_attributes']['0']['id']).first
+        end
         format.html { render partial: 'edit' }
         format.js { render :edit }
         format.json { render json: @vending_machine.errors, status: :unprocessable_entity }
@@ -76,6 +85,6 @@ class VendingMachinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vending_machine_params
-      params.require(:vending_machine).permit(:items_attributes => [:id, :quantity])
+      params.require(:vending_machine).permit(:change => ["0.01","0.02","0.05","0.10","0.20","0.50","1.00","2.00"], :items_attributes => [:id, :quantity])
     end
 end

@@ -16,7 +16,7 @@
         <td><%= item.description %> </td>
         <td><%= item.quantity %></td>
         <td>£<%= item.price %></td>
-        <td> <button onClick="$.items.showPayModal('<%= edit_vending_machine_path(item.vending_machine.id, {item_id: item.id}) %>')">Get one !!</button> </td>
+        <td> <button <%= 'disabled' if item.quantity == 0 %>   onClick="$.items.showPayModal('<%= edit_vending_machine_path(item.vending_machine.id, {item_id: item.id}) %>')">Get one !!</button> </td>
       </tr>
     <% end %>
   </tbody>

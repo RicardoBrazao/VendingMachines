@@ -1,0 +1,66 @@
+<%= simple_form_for @vending_machine, html: { id: 'refillVendingMachine', data: { remote: true, type: "script" } } do |f| %>
+
+  <h5>
+    Change Refill
+    <% total_change = 0 %>
+    <% @vending_machine.change.each do |key, value|
+      total_change+= (key.to_f*value.to_i).round(2)
+    end %>
+    <div>
+      Current change = <%= total_change.round(2) %>
+    </div>
+    <div>
+      Maximum change capacity = <%= @vending_machine.max_change %>
+      <% if @context && @context.errors && @context.errors[:max_change].try(:[], 0) %>
+        <div style="color: red"> <%= @context.errors[:max_change][0] %> </div>
+      <% end %>
+    </div>
+  </h5>
+  <table class="table">
+    <tbody>
+      <%= f.simple_fields_for :change do |change| %>
+        <% f.object.change.try(:each) do |key, value| %>
+          <tr>
+            <td>
+              <%= change.label key, required: false %>
+            </td>
+            <td>
+              <%= change.input key, label: false %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h5>
+    Items Refill
+    <% total_items = 0 %>
+    <% @vending_machine.items.each do |item|
+      total_items+= item.quantity
+    end %>
+    <div>
+      Current items = <%= total_items %>
+    </div>
+    <div>
+      Maximum items capacity = <%= @vending_machine.max_capacity %>
+      <% if @context && @context.errors && @context.errors[:max_capacity].try(:[], 0) %>
+        <div style="color: red"> <%= @context.errors[:max_capacity][0] %> </div>
+      <% end %>
+    </div>
+  </h5>
+  <table class="table">
+    <tbody>
+      <%= f.simple_fields_for :items do |item| %>
+        <tr>
+          <td>
+            <%= item.label item.object.description, required: false %>
+          </td>
+          <td>
+            <%= item.input :quantity, label: false, input_html: { value: 0 } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

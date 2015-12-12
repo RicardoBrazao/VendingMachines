@@ -1,11 +1,22 @@
-var paymentConcludedModal = $('<%= j render "concluded_payment", item: @context.item, total_change: @context.total_change %>')
+<% if @context.item %>
+  var paymentConcludedModal = $('<%= j render "concluded_payment", item: @context.item, total_change: @context.total_change %>')
 
-$("#itemPayment").modal('hide');
+  $("#itemPayment").modal('hide');
 
-$('#itemListing').modalmanager('loading');
+  $('#itemListing').modalmanager('loading');
 
-$('#itemListing').modal().find('.modal-body').html('<%= j render "items/index", items: @vending_machine.items.order(id: :asc) %>');
+  $('#itemListing').modal().find('.modal-body').html('<%= j render "items/index", items: @vending_machine.items.order(id: :asc) %>');
 
-$("#concludedPayment").remove();
-$("body").append(paymentConcludedModal);
-$("#concludedPayment").modal();
+  $("#concludedPayment").remove();
+  $("body").append(paymentConcludedModal);
+  $("#concludedPayment").modal();
+<% else %>
+  $('#refillMachine').modalmanager('loading');
+  $("#refillMachine").modal('hide');
+
+  var paymentConcludedModal = $('<%= j render "concluded_refill" %>')
+
+  $("#concludedPayment").remove();
+  $("body").append(paymentConcludedModal);
+  $("#concludedPayment").modal();
+<% end %>

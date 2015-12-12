@@ -15,6 +15,7 @@
           </div>
           <div>
             <button class="btn btn-primary" onClick="$.vendingMachines.show('<%= items_path(vending_machine_id: vending_machine.id) %>')">Select this machine</button>
+            <button class="btn btn-primary" onClick="$.vendingMachines.edit('<%= edit_vending_machine_path(vending_machine.id) %>')">Refill machine</button>
           </div>
         </td>
       <% end %>
@@ -40,3 +41,24 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="refillMachine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Refill Machine</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onClick="$.vendingMachines.refill()">Refill</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
