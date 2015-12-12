@@ -4,7 +4,7 @@ class VendingMachinesController < ApplicationController
   # GET /vending_machines
   # GET /vending_machines.json
   def index
-    @vending_machines = VendingMachine.all
+    @vending_machines = VendingMachine.all.order(id: :asc)
   end
 
   # GET /vending_machines/1
@@ -42,7 +42,7 @@ class VendingMachinesController < ApplicationController
   # PATCH/PUT /vending_machines/1
   # PATCH/PUT /vending_machines/1.json
   def update
-    @context = VendingMachines::Update::Base.perform(params)
+    @context = VendingMachines::Update::Base.perform({params: params})
     respond_to do |format|
       # if @vending_machine.update(vending_machine_params)
       if @context.success?

@@ -3,12 +3,12 @@ module VendingMachines
     class CheckMoney < UseCase::Base
 
       def before
-        @money_inserted = context.money_inserted.to_f
-        @item_price = Item.where(id: context.vending_machine["items_attributes"]["0"]["id"]).first.price
+        context.money_inserted = context.params["money_inserted"].to_f
+        context.item = Item.where(id: context.params["vending_machine"]["items_attributes"]["0"]["id"]).first
       end
 
       def perform
-        failure(:money_inserted, "Not enougth money inserted") if @money_inserted - @item_price < 0
+        failure(:money_inserted, "Not enough money inserted") if context.money_inserted - context.item.price < 0
       end
 
     end

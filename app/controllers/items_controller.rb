@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.where(vending_machine_id: params[:vending_machine_id])
+    @items = Item.where(vending_machine_id: params[:vending_machine_id]).order(id: :asc)
   end
 
   # GET /items/1
